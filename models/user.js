@@ -34,22 +34,14 @@ const userSchema = new mongoose.Schema({
         url: {
             type: String,
             required: true,
-            default: "https://wallpapercave.com/wp/wc1700893.jpg",
+            default: "https://res.cloudinary.com/dkamtzeky/image/upload/v1709386198/user/avatar-default.png",
         },
     },
 
     role: {
         type: String,
         default: "user",
-        required: [true, "Please select role for this:"],
-        enum: {
-            values: [
-                "user",
-                "admin",
-                "mechanic"
-            ],
-            message: "Please select correct type",
-        },
+        required: true,
     },
 
     googleId: {

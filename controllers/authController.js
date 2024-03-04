@@ -59,14 +59,6 @@ exports.loginUser = async (req, res, next) => {
     if (!isPasswordMatched) {
         return next(new ErrorHandler("Invalid Email or Password", 401));
     }
-
-    // const token = user.getJwtToken();
-
-    // res.status(201).json({
-    //   success: true,
-    //   token,
-    // });
-
     sendToken(user, 200, res);
 };
 
@@ -99,8 +91,6 @@ exports.forgotPassword = async (req, res, next) => {
 
     // Create reset password url
 
-    // const resetUrl = `${req.protocol}://${req.get('host')}/password/reset/${resetToken}`;
-
     const resetUrl = `${process.env.FRONTEND_URL}/password/reset/${resetToken}`;
 
     const message = `<p>Your password reset token is as follow:\n\n<a href="${resetUrl}">Reset Password</a>\n\nIf you have not requested this email, then ignore it.</p>`;
@@ -111,7 +101,7 @@ exports.forgotPassword = async (req, res, next) => {
         await sendEmail({
             email: user.email,
 
-            subject: "ShopIT Password Recovery",
+            subject: "Taro E-Assist Password Recovery",
 
             message,
 
@@ -136,7 +126,6 @@ exports.forgotPassword = async (req, res, next) => {
 
 exports.resetPassword = async (req, res, next) => {
     // Hash URL token
-
     const resetPasswordToken = crypto
         .createHash("sha256")
         .update(req.params.token)
@@ -326,7 +315,7 @@ exports.googlelogin = async (req, res, next) => {
             email: req.body.response.email,
             password: 'password',
             avatar: {
-                public_id: 'avatars/rjeu182thkednbnlitqc',
+                public_id: 'avatars/avatar-default',
                 url: req.body.response.picture,
             },
             googleId: req.body.response.id
